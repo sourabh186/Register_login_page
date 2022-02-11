@@ -43,7 +43,7 @@ app.post('/fun', async (req, res) => {
         }else {
             const customer = new Customer({username, email, phone, password, cpassword})
             let token = await customer.generateAuthToken()
-            console.log(token);
+            // console.log(token);  
             await customer.save()
             return res.status(200).render('index')
         }
@@ -63,10 +63,10 @@ app.post('/run', async (req, res) => {
         }else{
             const passMatch = await bcrypt.compare(password, userMatch.password)
             token = await userMatch.generateAuthToken()
-            console.log(token);
+            // console.log(token);
 
             res.cookie('jwtoken', token, {
-                expires : new Date(Date.now() + 25892000000),
+                expires : new Date(Date.now() + 60000),
                 httpOnly : true
             })
             if(passMatch){
